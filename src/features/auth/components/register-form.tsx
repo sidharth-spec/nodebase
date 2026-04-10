@@ -38,6 +38,16 @@ const registerSchema = z
     path: ["confirmPassword"],
   });
 type RegisterFormValues = z.infer<typeof registerSchema>;
+/**
+ * Renders a registration form and handles signup flow.
+ *
+ * The form uses react-hook-form with zod validation to collect email, password,
+ * and confirm password fields. On submit it calls `authClient.signUp.email`
+ * with the provided credentials, navigates to `/` on success, and shows an
+ * error toast on failure. Form buttons are disabled while submission is in progress.
+ *
+ * @returns The JSX element containing the registration UI
+ */
 export function RegisterForm() {
   const router = useRouter();
   const form = useForm<RegisterFormValues>({

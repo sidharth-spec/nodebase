@@ -32,6 +32,13 @@ const loginSchema = z.object({
   password: z.string().min(1, "Password is required"),
 });
 type LoginFormValues = z.infer<typeof loginSchema>;
+/**
+ * Renders a login card with email/password inputs, third-party buttons, and submit handling.
+ *
+ * Submits credentials to the authentication client, redirects to `/` on success, and shows an error toast on failure.
+ *
+ * @returns A React element containing the login form UI.
+ */
 export function LoginForm() {
   const router = useRouter();
   const form = useForm<LoginFormValues>({
