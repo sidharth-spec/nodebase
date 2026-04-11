@@ -28,6 +28,9 @@ const Page = () => {
       onSuccess: () => {
         toast.success("Job queued");
       },
+      onError: () => {
+        toast.error("Something went wrong");
+      },
     }),
   );
   return (
