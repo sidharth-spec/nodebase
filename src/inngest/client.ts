@@ -1,4 +1,7 @@
 // src/inngest/client.ts
 import { Inngest } from "inngest";
-
-export const inngest = new Inngest({ id: "nodebase" });
+import { realtimeMiddleware } from "@inngest/realtime/middleware";
+export const inngest = new Inngest({
+  id: "nodebase",
+  middleware: [realtimeMiddleware()],
+});
