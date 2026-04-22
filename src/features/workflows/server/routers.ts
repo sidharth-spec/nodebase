@@ -141,7 +141,7 @@ export const workflowsRouter = createTRPCRouter({
         source: connection.fromNodeId,
         target: connection.toNodeId,
         sourceHandle: connection.fromOutput,
-        targethandle: connection.toInput,
+        targetHandle: connection.toInput,
       }));
       return {
         id: workflow.id,
