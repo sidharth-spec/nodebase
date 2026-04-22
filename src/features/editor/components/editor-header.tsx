@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { SaveIcon } from "lucide-react";
@@ -19,21 +20,26 @@ import {
 } from "@/features/workflows/hooks/use-workflows";
 import { useAtomValue } from "jotai";
 import { editorAtom } from "../store/atoms";
+
 export const EditorSaveButton = ({ workflowId }: { workflowId: string }) => {
   const editor = useAtomValue(editorAtom);
   const saveWorkflow = useUpdateWorkflow();
+
   const handleSave = () => {
     if (!editor) {
       return;
     }
+
     const nodes = editor.getNodes();
     const edges = editor.getEdges();
+
     saveWorkflow.mutate({
       id: workflowId,
       nodes,
       edges,
     });
   };
+
   return (
     <div className="ml-auto">
       <Button size="sm" onClick={handleSave} disabled={saveWorkflow.isPending}>
@@ -47,9 +53,12 @@ export const EditorSaveButton = ({ workflowId }: { workflowId: string }) => {
 export const EditorNameInput = ({ workflowId }: { workflowId: string }) => {
   const { data: workflow } = useSuspenseWorkflow(workflowId);
   const updateWorkflow = useUpdateWorkflowName();
+
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState(workflow.name);
+
   const inputRef = useRef<HTMLInputElement>(null);
+
   useEffect(() => {
     if (workflow.name) {
       setName(workflow.name);
@@ -62,6 +71,7 @@ export const EditorNameInput = ({ workflowId }: { workflowId: string }) => {
       inputRef.current.select();
     }
   }, [isEditing]);
+
   const handleSave = async () => {
     if (name === workflow.name) {
       setIsEditing(false);
@@ -79,6 +89,7 @@ export const EditorNameInput = ({ workflowId }: { workflowId: string }) => {
       setIsEditing(false);
     }
   };
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       handleSave();
@@ -101,6 +112,7 @@ export const EditorNameInput = ({ workflowId }: { workflowId: string }) => {
       />
     );
   }
+
   return (
     <BreadcrumbItem
       onClick={() => setIsEditing(true)}
@@ -111,7 +123,7 @@ export const EditorNameInput = ({ workflowId }: { workflowId: string }) => {
   );
 };
 
-export const EditorBreadCrumbs = ({ workflowId }: { workflowId: string }) => {
+export const EditorBreadcrumbs = ({ workflowId }: { workflowId: string }) => {
   return (
     <Breadcrumb>
       <BreadcrumbList>
@@ -134,7 +146,7 @@ export const EditorHeader = ({ workflowId }: { workflowId: string }) => {
     <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4 bg-background">
       <SidebarTrigger />
       <div className="flex flex-row items-center justify-between gap-x-4 w-full">
-        <EditorBreadCrumbs workflowId={workflowId} />
+        <EditorBreadcrumbs workflowId={workflowId} />
         <EditorSaveButton workflowId={workflowId} />
       </div>
     </header>
