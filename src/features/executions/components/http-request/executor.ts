@@ -9,9 +9,9 @@ Handlebars.registerHelper("json", (context) => {
   return safeString;
 });
 type HttpRequestData = {
-  variableName: string;
-  endPoint: string;
-  method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+  variableName?: string;
+  endPoint?: string;
+  method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   body?: string;
 };
 export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
@@ -27,36 +27,38 @@ export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
       status: "loading",
     }),
   );
-  if (!data.endPoint) {
-    await publish(
-      httpRequestChannel().status({
-        nodeId,
-        status: "error",
-      }),
-    );
-    throw new NonRetriableError("HTTP Request node: No endpoint configured");
-  }
-  if (!data.variableName) {
-    await publish(
-      httpRequestChannel().status({
-        nodeId,
-        status: "error",
-      }),
-    );
-    throw new NonRetriableError("Variable name not configured");
-  }
-  if (!data.method) {
-    await publish(
-      httpRequestChannel().status({
-        nodeId,
-        status: "error",
-      }),
-    );
-    throw new NonRetriableError("Method not configured");
-  }
 
   try {
     const result = await step.run("http-request", async () => {
+      if (!data.endPoint) {
+        await publish(
+          httpRequestChannel().status({
+            nodeId,
+            status: "error",
+          }),
+        );
+        throw new NonRetriableError(
+          "HTTP Request node: No endpoint configured",
+        );
+      }
+      if (!data.variableName) {
+        await publish(
+          httpRequestChannel().status({
+            nodeId,
+            status: "error",
+          }),
+        );
+        throw new NonRetriableError("Variable name not configured");
+      }
+      if (!data.method) {
+        await publish(
+          httpRequestChannel().status({
+            nodeId,
+            status: "error",
+          }),
+        );
+        throw new NonRetriableError("Method not configured");
+      }
       const endpoint = Handlebars.compile(data.endPoint)(context);
       const method = data.method;
       const options: KyOptions = { method };
