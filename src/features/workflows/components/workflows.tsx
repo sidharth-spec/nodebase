@@ -127,6 +127,7 @@ export const WorkflowsEmpty = () => {
   };
   return (
     <>
+      {modal}
       <EmptyView
         onNew={handleCreate}
         message="You haven't created any workflows yet. Get Started by creating your first workflow"
