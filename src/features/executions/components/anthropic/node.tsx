@@ -11,7 +11,7 @@ import { ANTHROPIC_CHANNEL_NAME } from "@/inngest/channels/anthropic";
 import { fetchAnthropicRealtimeToken } from "./actions";
 type AnthropicNodeData = {
   variableNaame?: string;
-
+  credentialId?: string;
   systemPrompt?: string;
   userPrompt: string;
 };
