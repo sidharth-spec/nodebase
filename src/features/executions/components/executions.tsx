@@ -12,7 +12,7 @@ import {
   LoadingView,
 } from "@/components/entity-components";
 import type { Execution } from "@/generated/prisma/client";
-import { ExecutionStatus } from "@/generated/prisma/client";
+import { ExecutionStatus } from "@/generated/prisma/enums";
 import { useSuspenseExecutions } from "../hooks/use-executions";
 import { useExecutionsParams } from "../hooks/use-executions-params";
 import Image from "next/image";
