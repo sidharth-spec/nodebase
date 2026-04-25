@@ -12,7 +12,7 @@ import {
   LoadingView,
 } from "@/components/entity-components";
 import type { Credential } from "@/generated/prisma/client";
-import { CredentialType } from "@/generated/prisma/client";
+import { CredentialType } from "@/generated/prisma/enums";
 import {
   useRemoveCredential,
   useSuspenseCredentials,
